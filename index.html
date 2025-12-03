@@ -3,453 +3,448 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Model Studio (Functional)</title>
-    <!-- Load Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Set default font to Inter -->
+    <title>PhonePe QR Payment</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
         body {
-            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
         }
-        .bg-gradient-gemini {
-            background-image: linear-gradient(to right, #4F46E5, #3B82F6);
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            margin-top: 20px;
         }
-        .hover\:bg-gradient-gemini:hover {
-            background-image: linear-gradient(to right, #3B82F6, #4F46E5);
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            color: #5f0fff;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 5px;
+        }
+
+        .content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+        }
+
+        .qr-section {
+            flex: 1;
+            min-width: 300px;
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #333;
+        }
+
+        .qr-container {
+            width: 250px;
+            height: 250px;
+            margin: 15px 0;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .qr-code {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+            background: #f5f5f5;
+        }
+
+        .qr-placeholder {
+            text-align: center;
+            color: #666;
+            font-size: 0.9rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            width: 100%;
+        }
+
+        .qr-placeholder i {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            color: #5f0fff;
+        }
+
+        .payment-info {
+            text-align: center;
+            margin: 15px 0;
+        }
+
+        .payment-info h3 {
+            color: #5f0fff;
+            margin-bottom: 5px;
+        }
+
+        .name {
+            font-weight: bold;
+            margin-top: 10px;
+            font-size: 1.1rem;
+        }
+
+        .payment-section {
+            flex: 1;
+            min-width: 300px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .payment-card {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .payment-card h2 {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .payment-card h2 i {
+            color: #5f0fff;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: none;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+        }
+
+        .btn {
+            background: #5f0fff;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+        }
+
+        .btn:hover {
+            background: #4a00e0;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .video-container {
+            display: none;
+            margin-top: 30px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .video-container h2 {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .video-player {
+            width: 100%;
+            height: 400px;
+            background: #000;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+
+        .video-player iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .video-loading {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: white;
+        }
+
+        .video-loading i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: #5f0fff;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .download-link {
+            margin-top: 15px;
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px 20px;
+            border-radius: 10px;
+            text-decoration: none;
+            color: white;
+            transition: background 0.3s ease;
+        }
+
+        .download-link:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                flex-direction: column;
+            }
+            
+            .qr-section, .payment-section {
+                width: 100%;
+            }
+            
+            .video-player {
+                height: 250px;
+            }
         }
     </style>
 </head>
-<body class="bg-gray-100 p-4 sm:p-6 flex flex-col items-center min-h-screen">
-
-    <div id="app" class="w-full max-w-lg bg-white rounded-xl shadow-2xl p-6 sm:p-8 space-y-6">
-        
-        <!-- Header -->
-        <div class="text-center">
-            <h1 class="text-3xl font-extrabold text-blue-600 flex items-center justify-center space-x-2">
-                <!-- Zap Icon (Inline SVG) -->
-                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-                <span>AI Model Studio (Gemini Powered)</span>
-            </h1>
-            <p class="text-sm text-gray-500 mt-1">Virtual Try-On UI Concept - Now functional with Gemini</p>
-        </div>
-
-        <!-- Image Selection Area -->
-        <div class="border border-dashed border-gray-300 rounded-xl p-4 transition duration-300 hover:border-blue-400">
-            <label class="block text-sm font-medium text-gray-700 mb-2">1. Product Image (Required)</label>
-            
-            <input 
-                type="file" 
-                accept="image/*" 
-                id="file-upload" 
-                class="hidden"
-            />
-
-            <div class="flex space-x-3">
-                <button
-                    id="select-image-btn"
-                    class="flex-1 px-4 py-3 bg-indigo-500 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-600 transition duration-150 flex items-center justify-center space-x-2"
-                >
-                    <!-- FileUp Icon (Inline SVG) -->
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-                    <span>Select Product Image</span>
-                </button>
-                <button
-                    disabled
-                    class="px-4 py-3 bg-gray-300 text-gray-700 font-semibold rounded-lg shadow-md cursor-not-allowed flex items-center justify-center space-x-2"
-                >
-                    <!-- Camera Icon (Inline SVG) -->
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 10H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h4"/><path d="M14 2h4a2 2 0 0 1 2 2v4"/><path d="M6 22H4a2 2 0 0 1-2-2v-4"/><path d="M14 22h4a2 2 0 0 0 2-2v-4"/><path d="M10 12h.01"/><path d="M14 12h.01"/><path d="M10 16h4"/></svg>
-                    <span>Capture (Disabled)</span>
-                </button>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-mobile-alt"></i>
+                PhonePe
             </div>
-        </div>
+            <p class="subtitle">ACCEPTED HERE</p>
+            <p>Scan & Pay Using PhonePe App</p>
+        </header>
 
-        <!-- Preview and Prompt -->
-        <div class="space-y-4">
-            <div id="image-preview-container" class="relative h-48 bg-gray-200 rounded-xl overflow-hidden flex items-center justify-center border-2 border-gray-300 shadow-inner">
-                <img 
-                    id="image-preview" 
-                    src="" 
-                    alt="Product Preview" 
-                    class="object-cover w-full h-full hidden" 
-                />
-                <div id="preview-placeholder" class="text-gray-500 flex flex-col items-center">
-                    <!-- Image Icon (Inline SVG) -->
-                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mb-2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
-                    <span>Product Preview Area</span>
+        <div class="content">
+            <div class="qr-section">
+                <div class="payment-info">
+                    <h3>Pay ₹10 via QR Code</h3>
+                    <p>Scan this QR code with PhonePe app</p>
+                </div>
+                
+                <div class="qr-container">
+                    <!-- QR Code Image -->
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=upi://pay?pa=PAPPUKUMARGOND@ybl&pn=PAPPU%20KUMAR%20GOND&am=10&cu=INR" 
+                         alt="QR Code for Payment"
+                         class="qr-code">
+                </div>
+                
+                <div class="name">PAPPU KUMAR GOND</div>
+                <div class="name" style="font-size: 0.9rem; color: #666; margin-top: 5px;">State Bank of India - 5729</div>
+            </div>
+
+            <div class="payment-section">
+                <div class="payment-card">
+                    <h2><i class="fas fa-rupee-sign"></i> Payment Confirmation</h2>
+                    <p>After making the payment of ₹10, please enter your UTR number below to confirm your payment.</p>
+                    
+                    <div class="form-group">
+                        <label for="utr">UTR Number</label>
+                        <input type="text" id="utr" placeholder="Enter your 12-digit UTR number">
+                    </div>
+                    
+                    <button class="btn" id="submitBtn">
+                        <i class="fas fa-paper-plane"></i> Submit UTR & Unlock Video
+                    </button>
+                </div>
+                
+                <div class="payment-card">
+                    <h2><i class="fas fa-info-circle"></i> Instructions</h2>
+                    <ul style="padding-left: 20px; margin-top: 10px;">
+                        <li>Scan the QR code with PhonePe app</li>
+                        <li>Pay exactly ₹10 to the displayed account</li>
+                        <li>After payment, find UTR number in transaction history</li>
+                        <li>Enter 12-digit UTR number and click submit</li>
+                        <li>After verification, your exclusive video will unlock</li>
+                        <li>Video will automatically play after unlocking</li>
+                    </ul>
                 </div>
             </div>
-
-            <label class="block text-sm font-medium text-gray-700">2. Generation Prompt (e.g., Model, Setting)</label>
-            <div class="relative">
-                <textarea
-                    id="prompt-input"
-                    placeholder="Example: A tall, smiling male model with short brown hair, standing on a beach at sunset."
-                    rows="3"
-                    class="w-full p-3 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 transition resize-none pr-32"
-                ></textarea>
-                <button
-                    id="enhance-prompt-btn"
-                    class="absolute bottom-1 right-1 px-3 py-2 text-xs bg-indigo-500 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-600 transition duration-150 flex items-center justify-center space-x-1 disabled:bg-gray-400 disabled:cursor-not-allowed"
-                >
-                    <!-- Sparkle Icon (Inline SVG) -->
-                    <svg id="sparkle-icon" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="fill-current text-yellow-300"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                    <svg id="enhance-loader-icon" class="w-4 h-4 animate-spin hidden text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
-                    <span>Enhance Prompt ✨</span>
-                </button>
-            </div>
         </div>
 
-        <!-- Action Button -->
-        <button
-            id="generate-model-btn"
-            disabled
-            class="w-full py-4 text-white font-extrabold rounded-xl shadow-lg transition duration-300 flex items-center justify-center space-x-3 bg-gray-400 cursor-not-allowed"
-        >
-            <!-- Zap Icon -->
-            <svg id="zap-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-            <!-- Loader Icon (Hidden by default) -->
-            <svg id="loader-icon" class="w-6 h-6 animate-spin hidden" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
-            <span id="button-text">Generate AI Model ✨</span>
-        </button>
-
-        <!-- Error Message -->
-        <div id="error-message" class="hidden bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-xl relative" role="alert">
-            <strong class="font-bold">Error!</strong>
-            <span id="error-text" class="block sm:inline"></span>
+        <div class="video-container" id="videoContainer">
+            <h2><i class="fas fa-video"></i> Your Exclusive Video is Unlocked!</h2>
+            <div class="video-player" id="videoPlayer">
+                <div class="video-loading">
+                    <i class="fas fa-spinner"></i>
+                    <p>Loading your exclusive video...</p>
+                </div>
+            </div>
+            <p>Thank you for your payment! Enjoy this exclusive content.</p>
+            <a href="https://drive.google.com/uc?export=download&id=1oHKp4gAU0sy-2F3McSiCCwHi9u00dWxQ" 
+               class="download-link" 
+               target="_blank">
+                <i class="fas fa-download"></i> Download Video
+            </a>
         </div>
-
-        <!-- Result Section -->
-        <div id="result-section" class="hidden space-y-4 pt-4 border-t border-gray-200">
-            <h2 class="text-xl font-bold text-gray-800 flex items-center space-x-2">
-                <!-- Image Icon -->
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-teal-500"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
-                <span>Generated AI Mockup</span>
-            </h2>
-            <div class="relative w-full aspect-[4/5] rounded-xl overflow-hidden border-4 border-teal-500 shadow-xl">
-              <img 
-                id="generated-image"
-                src="" 
-                alt="Generated Model" 
-                class="object-cover w-full h-full" 
-              />
-              <div class="absolute top-3 right-3 bg-teal-500 text-white text-xs font-semibold px-3 py-1 rounded-full shadow-lg">
-                  ✓ Success
-              </div>
-            </div>
-
-            <!-- Action Buttons for Result -->
-            <div class="flex space-x-3 mt-4">
-              <button
-                disabled
-                class="flex-1 py-3 bg-gray-200 text-gray-700 font-medium rounded-lg shadow-md cursor-not-allowed flex items-center justify-center space-x-2"
-              >
-                <!-- Save Icon (Inline SVG) -->
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
-                <span>Save (Disabled)</span>
-              </button>
-              <button
-                disabled
-                class="flex-1 py-3 bg-gray-200 text-gray-700 font-medium rounded-lg shadow-md cursor-not-allowed flex items-center justify-center space-x-2"
-              >
-                <!-- Share2 Icon (Inline SVG) -->
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
-                <span>Share (Disabled)</span>
-              </button>
-              <button
-                id="retry-btn"
-                class="flex-1 py-3 bg-red-500 text-white font-medium rounded-lg shadow-md hover:bg-red-600 transition duration-150 flex items-center justify-center space-x-2"
-              >
-                <!-- RotateCcw Icon (Inline SVG) -->
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 1v6h6"/><path d="M3 15a9 9 0 1 0 5.25-10.25l-2.5-2.5"/></svg>
-                <span>Retry Generation</span>
-              </button>
-            </div>
-          </div>
-
     </div>
 
+    <footer>
+        <p>© 2025, All rights reserved, PhonePe Ltd</p>
+        <p>(Formerly known as 'PhonePe Private Ltd')</p>
+    </footer>
+
     <script>
-        // --- GEMINI API Configuration ---
-        const API_KEY = "AIzaSyDfLMVI0vUpmKonSSt0f1j4x03angVq2TQ"; // Placeholder for Canvas environment
-        const GENERATION_MODEL = 'gemini-2.5-flash-image-preview'; // For image generation
-        const ENHANCE_MODEL = 'gemini-2.5-flash-preview-09-2025'; // For text enhancement
-        const BASE_URL = 'https://generativelanguage.googleapis.com/v1beta/models/';
-
-        // Global state variables
-        let selectedFile = null;
-
-        // DOM elements
-        const fileUpload = document.getElementById('file-upload');
-        const selectImageBtn = document.getElementById('select-image-btn');
-        const imagePreview = document.getElementById('image-preview');
-        const previewPlaceholder = document.getElementById('preview-placeholder');
-        const promptInput = document.getElementById('prompt-input');
-        const generateBtn = document.getElementById('generate-model-btn');
-        const buttonText = document.getElementById('button-text');
-        const zapIcon = document.getElementById('zap-icon');
-        const loaderIcon = document.getElementById('loader-icon');
-        const errorMessageDiv = document.getElementById('error-message');
-        const errorText = document.getElementById('error-text');
-        const resultSection = document.getElementById('result-section');
-        const generatedImage = document.getElementById('generated-image');
-        const retryBtn = document.getElementById('retry-btn');
-        const enhancePromptBtn = document.getElementById('enhance-prompt-btn');
-        const sparkleIcon = document.getElementById('sparkle-icon');
-        const enhanceLoaderIcon = document.getElementById('enhance-loader-icon');
-
-
-        // --- Utility Functions ---
-
-        const fileToBase64 = (file) => {
-            return new Promise((resolve, reject) => {
-                const reader = new FileReader();
-                reader.onload = () => resolve(reader.result.split(',')[1]); // Only need the base64 part
-                reader.onerror = error => reject(error);
-                reader.readAsDataURL(file);
-            });
-        };
-
-        const showError = (message) => {
-            errorText.textContent = message;
-            errorMessageDiv.classList.remove('hidden');
-        };
-
-        const hideError = () => {
-            errorMessageDiv.classList.add('hidden');
-        };
-
-        const updateGenerateButton = () => {
-            const isPromptValid = promptInput.value.trim().length > 0;
-            const canGenerate = selectedFile !== null && isPromptValid;
-
-            if (canGenerate) {
-                generateBtn.removeAttribute('disabled');
-                generateBtn.classList.remove('bg-gray-400', 'cursor-not-allowed');
-                generateBtn.classList.add('bg-gradient-gemini', 'hover:bg-gradient-gemini', 'transform', 'hover:scale-[1.01]');
-            } else {
-                generateBtn.setAttribute('disabled', 'true');
-                generateBtn.classList.add('bg-gray-400', 'cursor-not-allowed');
-                generateBtn.classList.remove('bg-gradient-gemini', 'hover:bg-gradient-gemini', 'transform', 'hover:scale-[1.01]');
-            }
-
-            // Update enhance button state
-            if (isPromptValid) {
-                enhancePromptBtn.removeAttribute('disabled');
-            } else {
-                enhancePromptBtn.setAttribute('disabled', 'true');
-            }
-        };
-
-        const setLoadingState = (isLoading) => {
-            if (isLoading) {
-                generateBtn.setAttribute('disabled', 'true');
-                generateBtn.classList.add('bg-gray-400', 'cursor-not-allowed');
-                generateBtn.classList.remove('bg-gradient-gemini', 'hover:bg-gradient-gemini');
-                
-                buttonText.textContent = 'Generating...';
-                zapIcon.classList.add('hidden');
-                loaderIcon.classList.remove('hidden');
-            } else {
-                updateGenerateButton(); // Restore button state based on inputs
-                buttonText.textContent = 'Generate AI Model ✨';
-                zapIcon.classList.remove('hidden');
-                loaderIcon.classList.add('hidden');
-            }
-        };
-
-        const setEnhanceLoadingState = (isLoading) => {
-            if (isLoading) {
-                enhancePromptBtn.setAttribute('disabled', 'true');
-                sparkleIcon.classList.add('hidden');
-                enhanceLoaderIcon.classList.remove('hidden');
-            } else {
-                updateGenerateButton(); // Restore button state (which handles re-enabling enhance button)
-                sparkleIcon.classList.remove('hidden');
-                enhanceLoaderIcon.classList.add('hidden');
-            }
-        };
-
-        // --- API Call Functions ---
-
-        const fetchWithBackoff = async (url, options) => {
-            const maxRetries = 3;
-            let delay = 1000;
-
-            for (let i = 0; i < maxRetries; i++) {
-                try {
-                    const response = await fetch(url, options);
-                    if (response.ok) {
-                        return response;
-                    }
-                    if (response.status === 429 || response.status >= 500) {
-                        console.error(`Attempt ${i + 1} failed with status ${response.status}. Retrying in ${delay}ms...`);
-                        await new Promise(resolve => setTimeout(resolve, delay));
-                        delay *= 2; // Exponential backoff
-                        continue;
-                    }
-                    throw new Error(`API error: ${response.statusText}`);
-                } catch (error) {
-                    if (i === maxRetries - 1) throw error;
-                    console.error(`Attempt ${i + 1} failed: ${error.message}. Retrying in ${delay}ms...`);
-                    await new Promise(resolve => setTimeout(resolve, delay));
-                    delay *= 2; // Exponential backoff
-                }
-            }
-        };
-
-
-        // --- Event Handlers ---
-
-        fileUpload.addEventListener('change', (event) => {
-            const file = event.target.files[0];
-            if (file) {
-                selectedFile = file;
-                hideError();
-                resultSection.classList.add('hidden'); // Clear previous result
-
-                // Show image preview
-                const reader = new FileReader();
-                reader.onloadend = () => {
-                    imagePreview.src = reader.result;
-                    imagePreview.classList.remove('hidden');
-                    previewPlaceholder.classList.add('hidden');
-                };
-                reader.readAsDataURL(file);
-                
-                // Suggest a starting prompt if none is present
-                if (!promptInput.value.trim()) {
-                    promptInput.value = 'A model wearing this item, in a studio setting.';
-                }
-            } else {
-                selectedFile = null;
-                imagePreview.classList.add('hidden');
-                previewPlaceholder.classList.remove('hidden');
-            }
-            updateGenerateButton();
-        });
-
-        promptInput.addEventListener('input', updateGenerateButton);
-
-        selectImageBtn.addEventListener('click', () => {
-            fileUpload.click();
-        });
-
-        enhancePromptBtn.addEventListener('click', async () => {
-            if (enhancePromptBtn.disabled) return;
+        document.getElementById('submitBtn').addEventListener('click', function() {
+            const utrInput = document.getElementById('utr').value.trim();
             
-            const currentPrompt = promptInput.value.trim();
-            if (!currentPrompt) {
-                showError("Please enter a starting prompt to enhance.");
+            if (utrInput === '') {
+                alert('Please enter your UTR number');
                 return;
             }
-
-            setEnhanceLoadingState(true);
-            hideError();
-
-            const apiUrl = `${BASE_URL}${ENHANCE_MODEL}:generateContent?key=${API_KEY}`;
-            const systemPrompt = "You are an expert fashion photography director and prompt engineer. Your task is to take a user's brief descriptive prompt for a virtual try-on image and transform it into a single, highly detailed, photorealistic prompt optimized for a modern image generation model. Include details on lighting, camera angle, model description (if not specified, default to 'diverse'), texture, and setting. Do not include any conversational text, only the finalized, enhanced prompt.";
-
-            const payload = {
-                contents: [{ parts: [{ text: currentPrompt }] }],
-                systemInstruction: {
-                    parts: [{ text: systemPrompt }]
-                },
-            };
-
-            try {
-                const response = await fetchWithBackoff(apiUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-                
-                const result = await response.json();
-                const enhancedText = result.candidates?.[0]?.content?.parts?.[0]?.text;
-
-                if (enhancedText) {
-                    promptInput.value = enhancedText.trim();
-                } else {
-                    showError("Could not enhance prompt. API returned an unexpected response.");
-                }
-
-            } catch (err) {
-                console.error("Prompt Enhancement Error:", err);
-                showError("Failed to enhance prompt. Please check the console for details.");
-            } finally {
-                setEnhanceLoadingState(false);
-            }
-        });
-
-
-        generateBtn.addEventListener('click', async () => {
-            if (!selectedFile || generateBtn.disabled) {
+            
+            // Simple validation for UTR format (12-digit number)
+            if (!/^\d{12}$/.test(utrInput)) {
+                alert('Please enter a valid 12-digit UTR number');
                 return;
             }
-
-            setLoadingState(true);
-            hideError();
-            resultSection.classList.add('hidden');
-
-            try {
-                // 1. Convert selected file to Base64
-                const base64Image = await fileToBase64(selectedFile);
-                const fullPrompt = promptInput.value.trim();
+            
+            // Show loading state
+            const originalText = this.innerHTML;
+            this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verifying UTR...';
+            this.disabled = true;
+            
+            // Simulate verification delay
+            setTimeout(() => {
+                // Show the video container
+                document.getElementById('videoContainer').style.display = 'block';
                 
-                // 2. Construct API URL and Payload
-                const apiUrl = `${BASE_URL}${GENERATION_MODEL}:generateContent?key=${API_KEY}`;
+                // Load the video
+                loadVideo();
                 
-                const payload = {
-                    contents: [{
-                        parts: [
-                            { text: fullPrompt },
-                            { inlineData: { mimeType: selectedFile.type, data: base64Image } }
-                        ]
-                    }],
-                    generationConfig: {
-                        responseModalities: ['TEXT', 'IMAGE']
-                    },
-                };
-
-                // 3. Call the Image Generation API
-                const response = await fetchWithBackoff(apiUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
+                // Change button text
+                this.innerHTML = '<i class="fas fa-check"></i> UTR Verified! Video Unlocked';
+                this.style.background = '#28a745';
                 
-                const result = await response.json();
-
-                // 4. Process the response
-                const base64Data = result?.candidates?.[0]?.content?.parts?.find(p => p.inlineData)?.inlineData?.data;
-
-                if (base64Data) {
-                    generatedImage.src = `data:image/png;base64,${base64Data}`;
-                    resultSection.classList.remove('hidden');
-                } else {
-                    const errorDetail = result.error?.message || "Generation failed. Please try a different prompt or image.";
-                    showError(errorDetail);
-                    console.error("API Response Error:", result);
+                // Scroll to the video section
+                document.getElementById('videoContainer').scrollIntoView({ behavior: 'smooth' });
+            }, 1500);
+        });
+        
+        function loadVideo() {
+            // Google Drive video embed URL
+            const videoUrl = "https://drive.google.com/file/d/1oHKp4gAU0sy-2F3McSiCCwHi9u00dWxQ/preview";
+            
+            const videoPlayer = document.getElementById('videoPlayer');
+            videoPlayer.innerHTML = `
+                <iframe src="${videoUrl}" 
+                        allow="autoplay; fullscreen" 
+                        allowfullscreen
+                        title="Exclusive Video Content">
+                </iframe>
+            `;
+            
+            // Autoplay the video
+            setTimeout(() => {
+                const iframe = videoPlayer.querySelector('iframe');
+                if (iframe) {
+                    iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
                 }
-
-            } catch (err) {
-                console.error("Image Generation Error:", err);
-                showError(`Failed to generate image: ${err.message}.`);
-            } finally {
-                setLoadingState(false);
+            }, 1000);
+        }
+        
+        // Optional: Auto-submit on Enter key press
+        document.getElementById('utr').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('submitBtn').click();
             }
         });
-
-        retryBtn.addEventListener('click', () => {
-            resultSection.classList.add('hidden');
-            hideError();
-            setLoadingState(false);
-            // Inputs remain the same for easy retry
+        
+        // Optional: Add a demo UTR for testing
+        window.addEventListener('load', function() {
+            // For demo purposes, pre-fill a test UTR
+            document.getElementById('utr').value = '123456789012';
+            
+            // Add click handler for demo note
+            console.log('For demo: Use 123456789012 as UTR to unlock video');
         });
-
-        // Initial setup check
-        updateGenerateButton();
-
     </script>
 </body>
 </html>
